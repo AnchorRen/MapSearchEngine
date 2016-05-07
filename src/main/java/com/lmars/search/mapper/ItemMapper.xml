@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lmars.search.mapper.ItemMapper" >
+	<select id="getWMSItemList" resultType="com.lmars.search.pojo.SearchItem">
+		SELECT
+			id,
+			wmsId serviceId,
+			title mapName,
+			abstracts mapDesc,
+			images
+		FROM
+			tb_wms_layers
+		WHERE
+			id &lt; 5000
+	</select>
+	
+	<select id="getMapServiceItemList" resultType="com.lmars.search.pojo.SearchItem">
+		SELECT
+			id,
+			mapserviceId serviceId,
+			layerName mapName,
+			description mapDesc,
+			images
+		FROM
+			tb_mapservice_layers
+		WHERE
+			id &gt; 2000000
+	</select>
+</mapper>
