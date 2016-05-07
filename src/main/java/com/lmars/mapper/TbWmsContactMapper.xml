@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lmars.mapper.TbWmsContactMapper" >
+  <resultMap id="BaseResultMap" type="com.lmars.pojo.TbWmsContact" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="wms_id" property="wmsId" jdbcType="BIGINT" />
+    <result column="Person" property="person" jdbcType="VARCHAR" />
+    <result column="Organization" property="organization" jdbcType="VARCHAR" />
+    <result column="Position" property="position" jdbcType="VARCHAR" />
+    <result column="AddressType" property="addresstype" jdbcType="VARCHAR" />
+    <result column="Address" property="address" jdbcType="VARCHAR" />
+    <result column="City" property="city" jdbcType="VARCHAR" />
+    <result column="StateOrProvince" property="stateorprovince" jdbcType="VARCHAR" />
+    <result column="Country" property="country" jdbcType="VARCHAR" />
+    <result column="PostCode" property="postcode" jdbcType="VARCHAR" />
+    <result column="VoiceTelephone" property="voicetelephone" jdbcType="VARCHAR" />
+    <result column="FacsimileTelephone" property="facsimiletelephone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, wms_id, Person, Organization, Position, AddressType, Address, City, StateOrProvince, 
+    Country, PostCode, VoiceTelephone, FacsimileTelephone, email
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lmars.pojo.TbWmsContactExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_wms_contact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_wms_contact
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_wms_contact
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lmars.pojo.TbWmsContactExample" >
+    delete from tb_wms_contact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lmars.pojo.TbWmsContact" >
+    insert into tb_wms_contact (id, wms_id, Person, 
+      Organization, Position, AddressType, 
+      Address, City, StateOrProvince, 
+      Country, PostCode, VoiceTelephone, 
+      FacsimileTelephone, email)
+    values (#{id,jdbcType=BIGINT}, #{wmsId,jdbcType=BIGINT}, #{person,jdbcType=VARCHAR}, 
+      #{organization,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{addresstype,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{stateorprovince,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, #{voicetelephone,jdbcType=VARCHAR}, 
+      #{facsimiletelephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lmars.pojo.TbWmsContact" >
+    insert into tb_wms_contact
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="wmsId != null" >
+        wms_id,
+      </if>
+      <if test="person != null" >
+        Person,
+      </if>
+      <if test="organization != null" >
+        Organization,
+      </if>
+      <if test="position != null" >
+        Position,
+      </if>
+      <if test="addresstype != null" >
+        AddressType,
+      </if>
+      <if test="address != null" >
+        Address,
+      </if>
+      <if test="city != null" >
+        City,
+      </if>
+      <if test="stateorprovince != null" >
+        StateOrProvince,
+      </if>
+      <if test="country != null" >
+        Country,
+      </if>
+      <if test="postcode != null" >
+        PostCode,
+      </if>
+      <if test="voicetelephone != null" >
+        VoiceTelephone,
+      </if>
+      <if test="facsimiletelephone != null" >
+        FacsimileTelephone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="wmsId != null" >
+        #{wmsId,jdbcType=BIGINT},
+      </if>
+      <if test="person != null" >
+        #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="organization != null" >
+        #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="addresstype != null" >
+        #{addresstype,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="stateorprovince != null" >
+        #{stateorprovince,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="voicetelephone != null" >
+        #{voicetelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="facsimiletelephone != null" >
+        #{facsimiletelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lmars.pojo.TbWmsContactExample" resultType="java.lang.Integer" >
+    select count(*) from tb_wms_contact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_wms_contact
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.wmsId != null" >
+        wms_id = #{record.wmsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.person != null" >
+        Person = #{record.person,jdbcType=VARCHAR},
+      </if>
+      <if test="record.organization != null" >
+        Organization = #{record.organization,jdbcType=VARCHAR},
+      </if>
+      <if test="record.position != null" >
+        Position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addresstype != null" >
+        AddressType = #{record.addresstype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        Address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        City = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stateorprovince != null" >
+        StateOrProvince = #{record.stateorprovince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        Country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcode != null" >
+        PostCode = #{record.postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.voicetelephone != null" >
+        VoiceTelephone = #{record.voicetelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.facsimiletelephone != null" >
+        FacsimileTelephone = #{record.facsimiletelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_wms_contact
+    set id = #{record.id,jdbcType=BIGINT},
+      wms_id = #{record.wmsId,jdbcType=BIGINT},
+      Person = #{record.person,jdbcType=VARCHAR},
+      Organization = #{record.organization,jdbcType=VARCHAR},
+      Position = #{record.position,jdbcType=VARCHAR},
+      AddressType = #{record.addresstype,jdbcType=VARCHAR},
+      Address = #{record.address,jdbcType=VARCHAR},
+      City = #{record.city,jdbcType=VARCHAR},
+      StateOrProvince = #{record.stateorprovince,jdbcType=VARCHAR},
+      Country = #{record.country,jdbcType=VARCHAR},
+      PostCode = #{record.postcode,jdbcType=VARCHAR},
+      VoiceTelephone = #{record.voicetelephone,jdbcType=VARCHAR},
+      FacsimileTelephone = #{record.facsimiletelephone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lmars.pojo.TbWmsContact" >
+    update tb_wms_contact
+    <set >
+      <if test="wmsId != null" >
+        wms_id = #{wmsId,jdbcType=BIGINT},
+      </if>
+      <if test="person != null" >
+        Person = #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="organization != null" >
+        Organization = #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        Position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="addresstype != null" >
+        AddressType = #{addresstype,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        Address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        City = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="stateorprovince != null" >
+        StateOrProvince = #{stateorprovince,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        Country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        PostCode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="voicetelephone != null" >
+        VoiceTelephone = #{voicetelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="facsimiletelephone != null" >
+        FacsimileTelephone = #{facsimiletelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lmars.pojo.TbWmsContact" >
+    update tb_wms_contact
+    set wms_id = #{wmsId,jdbcType=BIGINT},
+      Person = #{person,jdbcType=VARCHAR},
+      Organization = #{organization,jdbcType=VARCHAR},
+      Position = #{position,jdbcType=VARCHAR},
+      AddressType = #{addresstype,jdbcType=VARCHAR},
+      Address = #{address,jdbcType=VARCHAR},
+      City = #{city,jdbcType=VARCHAR},
+      StateOrProvince = #{stateorprovince,jdbcType=VARCHAR},
+      Country = #{country,jdbcType=VARCHAR},
+      PostCode = #{postcode,jdbcType=VARCHAR},
+      VoiceTelephone = #{voicetelephone,jdbcType=VARCHAR},
+      FacsimileTelephone = #{facsimiletelephone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

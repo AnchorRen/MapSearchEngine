@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lmars.mapper.TbMapserviceLayersMapper" >
+  <resultMap id="BaseResultMap" type="com.lmars.pojo.TbMapserviceLayers" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="mapserviceId" property="mapserviceid" jdbcType="BIGINT" />
+    <result column="layerUrl" property="layerurl" jdbcType="VARCHAR" />
+    <result column="layerName" property="layername" jdbcType="VARCHAR" />
+    <result column="layerId" property="layerid" jdbcType="BIGINT" />
+    <result column="images" property="images" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lmars.pojo.TbMapserviceLayers" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, mapserviceId, layerUrl, layerName, layerId, images
+  </sql>
+  <sql id="Blob_Column_List" >
+    description
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.lmars.pojo.TbMapserviceLayersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_mapservice_layers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lmars.pojo.TbMapserviceLayersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_mapservice_layers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_mapservice_layers
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_mapservice_layers
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lmars.pojo.TbMapserviceLayersExample" >
+    delete from tb_mapservice_layers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lmars.pojo.TbMapserviceLayers" >
+    insert into tb_mapservice_layers (id, mapserviceId, layerUrl, 
+      layerName, layerId, images, 
+      description)
+    values (#{id,jdbcType=BIGINT}, #{mapserviceid,jdbcType=BIGINT}, #{layerurl,jdbcType=VARCHAR}, 
+      #{layername,jdbcType=VARCHAR}, #{layerid,jdbcType=BIGINT}, #{images,jdbcType=VARCHAR}, 
+      #{description,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lmars.pojo.TbMapserviceLayers" >
+    insert into tb_mapservice_layers
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mapserviceid != null" >
+        mapserviceId,
+      </if>
+      <if test="layerurl != null" >
+        layerUrl,
+      </if>
+      <if test="layername != null" >
+        layerName,
+      </if>
+      <if test="layerid != null" >
+        layerId,
+      </if>
+      <if test="images != null" >
+        images,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="mapserviceid != null" >
+        #{mapserviceid,jdbcType=BIGINT},
+      </if>
+      <if test="layerurl != null" >
+        #{layerurl,jdbcType=VARCHAR},
+      </if>
+      <if test="layername != null" >
+        #{layername,jdbcType=VARCHAR},
+      </if>
+      <if test="layerid != null" >
+        #{layerid,jdbcType=BIGINT},
+      </if>
+      <if test="images != null" >
+        #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lmars.pojo.TbMapserviceLayersExample" resultType="java.lang.Integer" >
+    select count(*) from tb_mapservice_layers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_mapservice_layers
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.mapserviceid != null" >
+        mapserviceId = #{record.mapserviceid,jdbcType=BIGINT},
+      </if>
+      <if test="record.layerurl != null" >
+        layerUrl = #{record.layerurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.layername != null" >
+        layerName = #{record.layername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.layerid != null" >
+        layerId = #{record.layerid,jdbcType=BIGINT},
+      </if>
+      <if test="record.images != null" >
+        images = #{record.images,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tb_mapservice_layers
+    set id = #{record.id,jdbcType=BIGINT},
+      mapserviceId = #{record.mapserviceid,jdbcType=BIGINT},
+      layerUrl = #{record.layerurl,jdbcType=VARCHAR},
+      layerName = #{record.layername,jdbcType=VARCHAR},
+      layerId = #{record.layerid,jdbcType=BIGINT},
+      images = #{record.images,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_mapservice_layers
+    set id = #{record.id,jdbcType=BIGINT},
+      mapserviceId = #{record.mapserviceid,jdbcType=BIGINT},
+      layerUrl = #{record.layerurl,jdbcType=VARCHAR},
+      layerName = #{record.layername,jdbcType=VARCHAR},
+      layerId = #{record.layerid,jdbcType=BIGINT},
+      images = #{record.images,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lmars.pojo.TbMapserviceLayers" >
+    update tb_mapservice_layers
+    <set >
+      <if test="mapserviceid != null" >
+        mapserviceId = #{mapserviceid,jdbcType=BIGINT},
+      </if>
+      <if test="layerurl != null" >
+        layerUrl = #{layerurl,jdbcType=VARCHAR},
+      </if>
+      <if test="layername != null" >
+        layerName = #{layername,jdbcType=VARCHAR},
+      </if>
+      <if test="layerid != null" >
+        layerId = #{layerid,jdbcType=BIGINT},
+      </if>
+      <if test="images != null" >
+        images = #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lmars.pojo.TbMapserviceLayers" >
+    update tb_mapservice_layers
+    set mapserviceId = #{mapserviceid,jdbcType=BIGINT},
+      layerUrl = #{layerurl,jdbcType=VARCHAR},
+      layerName = #{layername,jdbcType=VARCHAR},
+      layerId = #{layerid,jdbcType=BIGINT},
+      images = #{images,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lmars.pojo.TbMapserviceLayers" >
+    update tb_mapservice_layers
+    set mapserviceId = #{mapserviceid,jdbcType=BIGINT},
+      layerUrl = #{layerurl,jdbcType=VARCHAR},
+      layerName = #{layername,jdbcType=VARCHAR},
+      layerId = #{layerid,jdbcType=BIGINT},
+      images = #{images,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
