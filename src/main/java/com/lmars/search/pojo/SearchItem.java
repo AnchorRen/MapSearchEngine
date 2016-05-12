@@ -1,5 +1,7 @@
 package com.lmars.search.pojo;
-
+/*
+ * 检索库中一条记录的POJO类
+ */
 public class SearchItem {
 
 	private String id;

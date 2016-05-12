@@ -1,7 +1,9 @@
 package com.lmars.search.pojo;
 
 import java.util.List;
-
+/*
+ * 每次搜索结果的POJO类
+ */
 public class SearchResult {
 
 	private List<SearchItem> itemList;
