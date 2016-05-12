@@ -10,7 +10,11 @@ import com.lmars.common.pojo.MapResult;
 import com.lmars.common.utils.ExceptionUtil;
 import com.lmars.search.pojo.SearchResult;
 import com.lmars.search.service.MapSearchService;
-
+/**
+ * 关键字搜索Controller
+ * @author bruce
+ *
+ */
 @Controller
 public class MapSearchController {
 

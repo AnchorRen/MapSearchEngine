@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import com.lmars.search.dao.SearchDao;
 import com.lmars.search.pojo.SearchResult;
 import com.lmars.search.service.MapSearchService;
+/*
+ * 关键字搜索Controller
+ */
 @Service
 public class MapSearchServiceImpl implements MapSearchService {
 

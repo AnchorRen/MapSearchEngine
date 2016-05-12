@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lmars.common.pojo.MapResult;
 import com.lmars.common.utils.ExceptionUtil;
 import com.lmars.search.service.MapLayerService;
+/**
+ * 图层信息导入Solr索引库Controller
+ * @author bruce
+ *
+ */
 
 @Controller
 public class MapLayerController {

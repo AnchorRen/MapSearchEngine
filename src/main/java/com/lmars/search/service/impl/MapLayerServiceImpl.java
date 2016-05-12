@@ -1,10 +1,8 @@
 package com.lmars.search.service.impl;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +11,9 @@ import com.lmars.common.pojo.MapResult;
 import com.lmars.search.mapper.ItemMapper;
 import com.lmars.search.pojo.SearchItem;
 import com.lmars.search.service.MapLayerService;
+/*
+ * 图层导入Service
+ */
 @Service
 public class MapLayerServiceImpl implements MapLayerService {
 
