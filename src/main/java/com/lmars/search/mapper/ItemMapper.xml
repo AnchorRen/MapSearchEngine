@@ -10,8 +10,6 @@
 			images
 		FROM
 			tb_wms_layers
-		WHERE
-			id &lt; 5000
 	</select>
 	
 	<select id="getMapServiceItemList" resultType="com.lmars.search.pojo.SearchItem">

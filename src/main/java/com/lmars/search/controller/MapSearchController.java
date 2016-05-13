@@ -24,7 +24,7 @@ public class MapSearchController {
 	@RequestMapping("/q")
 	public String search(@RequestParam(defaultValue="")String keywords,
 			@RequestParam(defaultValue="1")Integer page,
-			@RequestParam(defaultValue="10")Integer rows,
+			@RequestParam(defaultValue="15")Integer rows,
 			Model model) throws Exception{
 		
 			SearchResult searchResult = mapSearchService.search(keywords, page, rows);

@@ -1,10 +1,13 @@
 package com.lmars.search.service.impl;
 
+import java.util.List;
+
 import org.apache.solr.client.solrj.SolrQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lmars.search.dao.SearchDao;
+import com.lmars.search.pojo.SearchItem;
 import com.lmars.search.pojo.SearchResult;
 import com.lmars.search.service.MapSearchService;
 /*
@@ -33,7 +36,7 @@ public class MapSearchServiceImpl implements MapSearchService {
 		//设置高亮
 		query.setHighlight(true);
 		//设置高亮片段的长度
-		query.setHighlightFragsize(500);
+		query.setHighlightFragsize(300);
 		query.addHighlightField("mapName");
 		query.addHighlightField("mapDesc");
 		query.setHighlightSimplePre("<font style=\"color:red\">");
@@ -51,6 +54,12 @@ public class MapSearchServiceImpl implements MapSearchService {
 		}
 		result.setPageCount(pageCount);
 		result.setCurPage(page);
+		
+		List<SearchItem> list = result.getItemList();
+		for (SearchItem searchItem : list) {
+			System.out.println(searchItem.getMapDesc());
+			System.out.println("-------------------");
+		}
 		
 		return result;
 	}

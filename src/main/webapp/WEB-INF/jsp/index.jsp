@@ -22,7 +22,7 @@
 			</div>
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-12 col-md-8 center-block">
+					<div class="col-sm-12 col-md-6 center-block">
 						<div class="row">
 						
 						</div>
@@ -30,12 +30,12 @@
 							<form action="/" method="get">
 								<div class="col-sm-9">
 									<div class="form-group">								
-									    <input type="text" autocomplete='off' name="keyword" class="form-control input-header" id="key" placeholder="search">
+									    <input type="text" autocomplete='off' name="keyword" class="form-control input-header" id="key" placeholder="input keywords to search map services">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
-									   	<button type="submit" class="btn btn-default btn-outline btn-header btn-block" onclick="search('key');return false;">搜索</button>
+									   	<button type="submit" class="btn btn-default btn-outline btn-header btn-block" onclick="search('key');return false;">搜             索</button>
 									</div>
 								</div>
 							</form>
