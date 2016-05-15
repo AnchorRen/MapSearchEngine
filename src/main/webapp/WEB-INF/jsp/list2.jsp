@@ -27,18 +27,18 @@
 			<div class="cover-img" style="background-image: url(../../images/bg_left.jpeg);"></div>
 		</div> -->
 	<!-- <div class="col-md-9 col-md-offset-3"> -->
+	<div class="row">
 	<div class="col-md-12">
 		<div class="navbar navbar-default header">
 			<div class="container-fluid">
-				<div class="row">
+				<!-- <div class="row"> -->
 					<form class="navbar-form navbar-left" role="search" method="get"
 						style="margin-left: 35px;">
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search"
-								name="keyword" aria-describedby="btn-search" id="key"
-								value="${query}"> <span class="input-group-btn"
-								id="btn-search"><button type="submit"
-									class="btn btn-default" onclick="search('key');return false;">搜索</button></span>
+							<input type="text" class="form-control" placeholder="Search" name="keyword" aria-describedby="btn-search" id="key" value="${query}">
+							 <span class="input-group-btn" id="btn-search">
+							     <button type="submit" class="btn btn-default" onclick="search('key');return false;">搜索</button>
+							 </span>
 						</div>
 					</form>
 
@@ -46,15 +46,12 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="col-md-9">
 		<div class="row">
 			<div class="col-md-7">
 				<span class="label label-primary">Primary</span>
 			</div>
 		</div>
-	</div>
-	
+
 	<div class="col-md-9">
 		<div class="row">
 			<!-- <div class="navbar navbar-default header">
