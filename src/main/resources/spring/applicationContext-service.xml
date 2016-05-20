@@ -11,7 +11,7 @@
 	<!-- 加载配置文件 -->
 	<context:property-placeholder location="classpath:properties/*.properties" />
 	<!-- 配置service包扫描器  带@service注解的-->
-	<context:component-scan base-package="com.lmars.search.service,com.lmars.search.dao"></context:component-scan>
+	<context:component-scan base-package="com.lmars.search.service,com.lmars.search.dao,com.lmars.manage.service"></context:component-scan>
 	<bean id="httpSolrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
 		<constructor-arg name="baseURL" value="http://localhost:8180/solr" />
 	</bean>
