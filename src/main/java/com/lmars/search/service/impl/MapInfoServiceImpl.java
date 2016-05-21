@@ -120,7 +120,7 @@ public class MapInfoServiceImpl implements MapInfoService {
 		List<TbWmsContact> contacts = contactMapper.selectByExample(example);
 		TbWmsContact contact = new TbWmsContact();
 
-		if (contacts != null && !contacts.equals(null)) {
+		if (contacts != null && contacts.size()>0) {
 			contact = contacts.get(0);// 如果查询到了结果，只能有一个
 		}
 

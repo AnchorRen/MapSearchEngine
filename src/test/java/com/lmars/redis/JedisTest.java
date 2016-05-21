@@ -10,9 +10,10 @@ public class JedisTest {
 
 	@Test
 	public void JedisTest(){
-		Jedis jedis = new Jedis("192.168.253.129",6379);
+		Jedis jedis = new Jedis("localhost",6379);
 		int id = 20000001;
-		String test = jedis.get("MAP_ITEM:"+id);
+		String result = jedis.set("555", "SUCCESS!");
+		String test = jedis.get("555");
 		System.out.println(test);
 		jedis.close();
 	}
@@ -23,9 +24,12 @@ public class JedisTest {
 		ApplicationContext ap = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
 		
 		JedisClient client = ap.getBean(JedisClient.class);
-		//String result = client.set("555", "SUCCESS!");
+//		String result = client.set("555", "SUCCESS!");
 		
-		System.out.println(client.get("test"));
+		System.out.println(client.get("MAP_ITEM:20003838"));
+		client.expire("MAP_ITEM:20003838", 0);
+		System.out.println("----------------");
+		System.out.println(client.get("MAP_ITEM:20003838"));
 	}
 	
 	

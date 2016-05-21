@@ -18,6 +18,12 @@ public class MapInfoController {
 	@Autowired
 	private MapInfoService mapInfoService;
 	
+	/**
+	 * 服务详细信息显示
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/service/{id}")
 	public String showMapInfo(@PathVariable Long id,Model model){
 		ServiceItem mapInfo = mapInfoService.getMapInfo(id);

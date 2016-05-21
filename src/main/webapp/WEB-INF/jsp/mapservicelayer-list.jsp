@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<table class="easyui-datagrid" id="itemList" title="MapService图层管理" 
+<table class="easyui-datagrid" id="itemList" title="MapService图层列表" 
        data-options="singleSelect:false,collapsible:true,pagination:true,url:'/mapservice/layer/list',method:'get',pageSize:30,toolbar:toolbar">
     <thead>
         <tr>

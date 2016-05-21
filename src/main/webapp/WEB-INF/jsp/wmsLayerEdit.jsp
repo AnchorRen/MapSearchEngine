@@ -19,7 +19,7 @@
 	        </tr>
 	        <tr>
 	            <td>Title:</td>
-	            <td><input class="easyui-textbox" type="text" name="title" data-options="required:true" style="width: 280px;"></input></td>
+	            <td><input class="easyui-textbox" type="text" name="title"  style="width: 280px;"></input></td>
 	        </tr>
 	        <tr>
 	            <td>Name:</td>

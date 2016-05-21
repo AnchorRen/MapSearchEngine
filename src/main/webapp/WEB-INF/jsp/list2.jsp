@@ -81,7 +81,7 @@
 						</a>
 							<div>
 								<h4 class="title">
-									<a href="/service/${item.id}" target="_blank">${item.mapName}</a>
+									<a href="/service/${item.serviceId}" target="_blank">${item.mapName}</a>
 								</h4>
 								<p class="des">${item.mapDesc}</p>
 								<div class="list-footer">

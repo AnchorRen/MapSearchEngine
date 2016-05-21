@@ -10,7 +10,11 @@ import com.lmars.common.pojo.MapResult;
 import com.lmars.manage.service.WMSLayerService;
 import com.lmars.pojo.TbWmsLayers;
 import com.lmars.search.service.MapLayerService;
-
+/**
+ * WMS 图层管理Controller
+ * @author Administrator
+ *
+ */
 @Controller
 @RequestMapping("/wms")
 public class WMSLayerController {
@@ -21,19 +25,32 @@ public class WMSLayerController {
 	@Autowired
 	private MapLayerService mapLayerService;
 	
-	
+	/**
+	 * 显示WMS 图层列表
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
 	@RequestMapping("/layer/list")
 	@ResponseBody
 	public EasyUIDataGridResult getWMSLayerList(Integer page, Integer rows){
 		EasyUIDataGridResult result = wmsLayerService.getWMSLayerList(page, rows);
 		return result;
 	}
-	
+	/**
+	 * 显示WMS图层编辑页面
+	 * @return
+	 */
 	@RequestMapping("/layer/layerEdit")
 	public String showLayerEditPage(){
 		return "wmsLayerEdit";
 	}
 	
+	/**
+	 * WMS图层更新
+	 * @param wmsLayer
+	 * @return
+	 */
 	@RequestMapping("/layer/update")
 	@ResponseBody
 	public MapResult updateWMSLayer(TbWmsLayers wmsLayer){
@@ -46,7 +63,11 @@ public class WMSLayerController {
 		
 		return result;
 	}
-	
+	/**
+	 * WMS图层删除
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping("/layer/delete")
 	@ResponseBody
 	public MapResult deleteWMSLayer(Long[] ids){

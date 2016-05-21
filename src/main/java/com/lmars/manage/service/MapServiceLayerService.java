@@ -3,7 +3,11 @@ package com.lmars.manage.service;
 import com.lmars.common.pojo.EasyUIDataGridResult;
 import com.lmars.common.pojo.MapResult;
 import com.lmars.pojo.TbMapserviceLayers;
-
+/**
+ * MapService图层管理Service
+ * @author Administrator
+ *
+ */
 public interface MapServiceLayerService {
 
 	/**

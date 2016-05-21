@@ -21,6 +21,15 @@ public class MapSearchController {
 	@Autowired
 	private MapSearchService mapSearchService;
 	
+	/**
+	 * 根据关键字搜索
+	 * @param keywords 关键字
+	 * @param page 页数
+	 * @param rows 行数
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/q")
 	public String search(@RequestParam(defaultValue="")String keywords,
 			@RequestParam(defaultValue="1")Integer page,
