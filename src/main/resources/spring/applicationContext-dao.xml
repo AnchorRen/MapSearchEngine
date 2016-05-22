@@ -27,6 +27,30 @@
 		<!-- 加载mybatis的全局配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml" />
 	</bean>
+	
+	<!-- 自定义Realm -->
+	<bean id="myRealm" class="com.lmars.shiro.MyRealm"/>  
+	
+	<!-- 安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">  
+  	  <property name="realm" ref="myRealm"/>  
+	</bean>  
+	
+	<!-- Shiro过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">  
+	    <!-- Shiro的核心安全接口,这个属性是必须的 -->  
+	    <property name="securityManager" ref="securityManager"/>
+	    <!-- 身份认证失败，则跳转到登录页面的配置 -->  
+	    <property name="loginUrl" value="/login"/> 
+	    <!-- Shiro连接约束配置,即过滤链的定义 -->  
+	    <property name="filterChainDefinitions">  
+	        <value>
+				/login=anon
+				/manage/**=authc
+	        </value>  
+	    </property>
+	</bean>  
+	
 	<!-- 配置包扫描器 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.lmars.mapper,com.lmars.search.mapper" />

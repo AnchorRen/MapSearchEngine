@@ -39,12 +39,21 @@
     <div data-options="region:'center',title:''">
     	<div id="tabs" class="easyui-tabs">
 		    <div title="首页" style="padding:20px;">
-		        	
+		        	<font size="3">&nbsp;&nbsp;<strong>欢迎您：</strong>${user.username }</font>
+		        	<a href="javascript:logout()" class="easyui-linkbutton" data-options="plain:false,iconCls:'icon-cancel'" style="width: 80px;float:right">安全退出</a>
 		    </div>
 		</div>
     </div>
     
+
 <script type="text/javascript">
+function logout(){
+	$.messager.confirm("系统提示","您确定要退出系统吗？",function(r){
+		if(r){
+			window.location.href='${pageContext.request.contextPath}/logout';
+		} 
+	 });
+}
 $(function(){
 	$('#menu').tree({
 		onClick: function(node){
