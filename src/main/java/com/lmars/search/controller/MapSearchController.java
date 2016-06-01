@@ -40,6 +40,7 @@ public class MapSearchController {
 			
 			//参数传递 给页面
 			model.addAttribute("query", keywords);
+			model.addAttribute("recordCount", searchResult.getRecordCount());
 			model.addAttribute("totalPages", searchResult.getPageCount());
 			model.addAttribute("itemList", searchResult.getItemList());
 			model.addAttribute("page", searchResult.getCurPage());

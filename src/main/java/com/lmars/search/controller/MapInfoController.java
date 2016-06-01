@@ -28,6 +28,12 @@ public class MapInfoController {
 	public String showMapInfo(@PathVariable Long id,Model model){
 		ServiceItem mapInfo = mapInfoService.getMapInfo(id);
 		model.addAttribute("mapInfo", mapInfo);
-		return "mapInfo";
+		if(id>10000000 && id<20000000){
+			return "wmsInfo";
+		}else if(id>20000000){
+			
+			return "mapServiceInfo";
+		}
+		return null;
 	}
 }

@@ -24,7 +24,7 @@ a, a:visited, a:active, a:focus {
   text-decoration: none;
 }
 a:hover {
-	color: #16a085;
+	color: #111abd;
 	text-decoration: none;
     outline: none;
 }
@@ -304,13 +304,15 @@ ul{
 .navbar-default .navbar-form .input-group .form-control {
 	font-size: 18px;
 	height: auto;
+	border-radius: 0;
 }
 #btn-search button{
-	background-color: #1abc9c;
+	background-color: #006ddb;
 	color: #fff;
 	border: 1px solid #1abc9c;
 	outline: none;
 	font-size: 18px;
+	border-radius: 0;
 }
 .main {
 	margin-top: 56px;
@@ -332,7 +334,7 @@ ul{
     word-wrap: break-word;
     float: left;
 }
-.article-list .have-img .wrap-img {
+.article-list .have-img .wrap-img  {
     float: right;
     width: 100px;
     height: 100px;
@@ -358,12 +360,23 @@ ul{
     margin-left: 0;
     display: inherit;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: mormal;
     line-height: 1.5;
     color: #555;
 }
+.des{
+	  font-family: Georgia, "Times New Roman", Times, serif;
+	  line-height: 1.3;
+	  /* text-indent: 2em; */
+      text-align: justify;
+      text-justify: inter-ideograph;
+}
 .article-list .title i {
 	font-size: 14px;
+}
+.title>a{
+	color:#3a4ab6;
+	font-family: arial,sans-serif;
 }
 .article-list .list-footer {
     font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
@@ -371,9 +384,21 @@ ul{
     font-weight: normal;
     line-height: 20px;
 }
+.list-footer  > em{
+	color: #ff8000;
+}
 .article-list .list-footer>a, .article-list .list-footer>span {
     color: #999999;
 }
 .article-list .list-footer > span > strong, .article-list .list-footer > span > em {
     color: #FFA624;
+}
+.pagination>li:first-child>a, .pagination>li:first-child>span {
+    margin-left: 0;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.pagination>li:last-child>a, .pagination>li:last-child>span {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
 }

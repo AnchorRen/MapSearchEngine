@@ -6,22 +6,27 @@ $(document).ready(function () {
         if (r != null) return unescape(r[2]); return null; //返回参数值
     }
 	
-	var keywords = getUrlParam('keywords');
-	
+	var keywords = getUrlParam("keywords");
+	var page = getUrlParam("page")==null?1:getUrlParam("page");
+	var totlePages = $("#totalPages").html();
+	var curPage = $("#page").html();
+	/*alert(page);*/
     $('#visible-pages-example').twbsPagination({
-        totalPages: 20,
+        totalPages: totlePages,
+        startPage : 1,
+        page:curPage,
         visiblePages: 10,
-        version: '1.1',
+        initiateStartPageClick :false,
         href: '?keywords='+keywords+'&page={{pageNumber}}',
         hrefVariable: '{{pageNumber}}',
-        first: '第一页',
+        first: '首页',
         prev: '上一页',
         next: '下一页',
-        last: '最后一页',
+        last: '尾页',
+        loop :true,
         onPageClick: function (event, page) {
             $('#page-content').text('Page ' + page);
         }
     });
-
 });
 
