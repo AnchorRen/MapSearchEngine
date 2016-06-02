@@ -15,7 +15,7 @@
 	src="http://cdn.bootcss.com/jquery/2.0.1/jquery.min.js"></script>
 <script type="text/javascript"
 	src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../js/jquery.twbsPagination.js">
+<script type="text/javascript" src="../../js/jquery.twbsPagination.js" charset="gb2312">
 	
 </script>
 <script type="text/javascript" src="../../js/page.js">
@@ -65,9 +65,9 @@
 					<c:forEach items="${itemList}" var="item">
 						<li class="have-img">
 							<p class="images">
-									<a href="${item.images}" target="_blank" class="wrap-img"> <img src="../../images/2.png"></a>
-									<a href="${item.images}" target="_blank" class="wrap-img"> <img src="../../images/5.png"></a> 
-									<a href="${item.images}" target="_blank" class="wrap-img"> <img src="../../images/4.png"></a>
+									<a href="${item.images}" target="_blank" class="wrap-img"> <img src="../../images/${item.id%10}.png"></a>
+									<a href="${item.images}" target="_blank" class="wrap-img"> <img src="../../images/${(item.id+1)%10}.png"></a> 
+									<a href="${item.images}" target="_blank" class="wrap-img"> <img src="../../images/${(item.id+2)%10}.png"></a>
 							</p>
 							<div>
 								<h3 class="title" >

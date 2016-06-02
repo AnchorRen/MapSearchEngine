@@ -6,11 +6,11 @@ $(document).ready(function () {
         if (r != null) return unescape(r[2]); return null; //返回参数值
     }
 	
-	var keywords = getUrlParam("keywords");
+	var keywords = escape(getUrlParam("keywords"));//编码转换
 	var page = getUrlParam("page")==null?1:getUrlParam("page");
 	var totlePages = $("#totalPages").html();
 	var curPage = $("#page").html();
-	/*alert(page);*/
+	//alert(page);
     $('#visible-pages-example').twbsPagination({
         totalPages: totlePages,
         startPage : 1,

@@ -36,6 +36,7 @@ public class MapSearchController {
 			@RequestParam(defaultValue="15")Integer rows,
 			Model model) throws Exception{
 		
+			keywords = new String(keywords.getBytes("iso8859-1"),"utf-8");
 			SearchResult searchResult = mapSearchService.search(keywords, page, rows);
 			
 			//参数传递 给页面

@@ -41,10 +41,18 @@
         }
 
         if (this.options.href) {
-            var m, regexp = this.options.href.replace(/[-\/\\^$*+?.|[\]]/g, '\\$&');
+            var m, 
+            regexp = this.options.href.replace(/[-\/\\^$*+?.|[\]]/g, '\\$&');
             regexp = regexp.replace(this.options.hrefVariable, '(\\d+)');
             if ((m = new RegExp(regexp, 'i').exec(window.location.href)) != null) {
                 this.options.startPage = parseInt(m[1], 10);
+            }else{
+            	var reg = new RegExp("(^|&)" + "page" + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+                if (r != null){
+                	var page = parseInt(r[2],10);
+                	this.options.startPage = page;
+                }
             }
         }
 
