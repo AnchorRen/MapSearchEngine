@@ -26,6 +26,7 @@
     
     <!-- Load Leaflet from CDN-->
 	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet.css" />
+	  <link href="${pageContext.request.contextPath}/dist/css/leaflet.auto-layers.css" rel="stylesheet">
 	  <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js"></script>
 	  <!-- Load Esri Leaflet from CDN -->
 	  <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js"></script>
@@ -35,6 +36,7 @@
     <script src="http://maps.google.com/maps/api/js?v=3"></script>
     <script src="${pageContext.request.contextPath}/dist/js/Bing.js"></script>
     <script src="${pageContext.request.contextPath}/dist/js/Control.FullScreen.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/leaflet-autolayers.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -296,50 +298,74 @@ body a {
     </footer>
 
     <script type='text/javascript'>
-  //定义Google 底图
-    var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
-               maxZoom: 20,
-              subdomains:['mt0','mt1','mt2','mt3']
-          }),
-      googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
-               maxZoom: 20,
-              subdomains:['mt0','mt1','mt2','mt3']
-          }),
-      googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-              maxZoom: 20,
-               subdomains:['mt0','mt1','mt2','mt3']
-          }),
-      googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
-                maxZoom: 20,
-                subdomains:['mt0','mt1','mt2','mt3']
-          });
+    //定义Google 底图
+    var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }),
+        googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }),
+        googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }),
+        googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
     //定义Bing 底图
     var imagerySet = "Aerial"; // AerialWithLabels | Birdseye | BirdseyeWithLabels | Road
     var bingKey = "LfO3DMI9S6GnXD7d0WGs~bq2DRVkmIAzSOFdodzZLvw~Arx8dclDxmZA0Y38tHIJlJfnMbGq5GXeYmrGOUIbS2VLFzRKCK0Yv_bAl6oe-DOc";
 
-    var bingAerial = new L.BingLayer(bingKey, {type:"Aerial"});
-    var bingAerialWithLabels = new L.BingLayer(bingKey, {type: "AerialWithLabels"});
-    var bingRoad = new L.BingLayer(bingKey, {type: "Road"});
+    var bingAerial = new L.BingLayer(bingKey, {
+        type: "Aerial"
+    });
+    var bingAerialWithLabels = new L.BingLayer(bingKey, {
+        type: "AerialWithLabels"
+    });
+    var bingRoad = new L.BingLayer(bingKey, {
+        type: "Road"
+    });
 
     //定义MapBox底图
     var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery © <a href="http://mapbox.com">Mapbox</a>';
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>';
     var mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw';
 
-    var mapboxGrayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr});
-    var mapboxStreets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
+    var mapboxGrayscale = L.tileLayer(mbUrl, {
+        id: 'mapbox.light',
+        attribution: mbAttr
+    });
+    var mapboxStreets = L.tileLayer(mbUrl, {
+        id: 'mapbox.streets',
+        attribution: mbAttr
+    });
     //OpenStreenMap 底图
     var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              });
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+     //底图数组
+    var baseLayers = {
+        "OpenStreetMap": osm,
+        "Mapbox Grayscale": mapboxGrayscale,
+        "Mapbox Streets": mapboxStreets,
+        "Google Streets": googleStreets,
+        "Google Hybrid": googleHybrid,
+        "Google Sate": googleSat,
+        "Google Terrain": googleTerrain,
+        "Bing Aerial": bingAerial,
+        "Bing Hybrid": bingAerialWithLabels,
+        //"Bing Birdseye":bingBirdseye,
+        "Bing Road": bingRoad
 
 
-      //var map = L.map('map').setView([37.71, -99.88], 4);
+    };
 
-     // L.esri.basemapLayer('Gray').addTo(map);
-
-      var layer0 = L.esri.dynamicMapLayer({
+        var layer0 = L.esri.dynamicMapLayer({
         url: 'http://arcgis.sd.gov/arcgis/rest/services/DENR/SpillsSupport/MapServer',
         opacity: 1,
         useCors: false,
@@ -374,8 +400,7 @@ body a {
         layers:[4]
       });
 
-
-      //图层数组
+        //图层数组
     var overlays = {
           "layer0":layer0,
           "layer1":layer1,
@@ -384,45 +409,20 @@ body a {
           "layer4":layer4
         };
 
-      //底图数组
-    var baseLayers = {
-          "MapBox Grayscale": mapboxGrayscale,
-          "MapBox Streets": mapboxStreets,
-          "OpenStreetMap":osm,
-        
-          "Google Streets":googleStreets,
-          "Google Hybrid":googleHybrid,
-          "Google Satelite":googleSat,
-          "Google Terrain":googleTerrain,
-          "Bing Aerial":bingAerial,
-          "Bing AerialWithLabels":bingAerialWithLabels,
-          //"Bing Birdseye":bingBirdseye,
-          "Bing Road":bingRoad
 
+    var map = L.map('map', {
+        zoom: 6,
+        center: [39, -104]
+    });
 
-        };
+    var config = {
+        overlays:overlays,
+        selectedBasemap: 'OpenStreetMap',
+        selectedOverlays: ["domains","boundaries"],
+        baseLayers:baseLayers,
+    };
 
-        var map = L.map('map', {
-          center: [39.73, -104.99],
-          zoom: 5,
-          layers: [osm], //初始显示的底图和图层
-          fullscreenControl: true,
-			fullscreenControlOptions: { // optional
-				title:"Show me the fullscreen !",
-				titleCancel:"Exit fullscreen mode"
-			}
-        });
-		
-        // detect fullscreen toggling
-        map.on('enterFullscreen', function(){
-        	if(window.console) window.console.log('enterFullscreen');
-        });
-        map.on('exitFullscreen', function(){
-        	if(window.console) window.console.log('exitFullscreen');
-        });
-        
-        map.addLayer(osm);
-        map.addControl(new L.Control.Layers( baseLayers, overlays,{collapsed: true})); //false为右上角不折叠，true为默认折叠
+    var control = L.control.autolayers(config).addTo(map);
     </script>
     <!-- Bootstrap core JavaScript
     ================================================== -->
