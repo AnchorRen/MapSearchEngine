@@ -5,23 +5,26 @@
 		SELECT
 			id,
 			wmsId serviceId,
-			title mapName,
+			title mapTitle,
 			abstracts mapDesc,
+			name mapName,
 			images
 		FROM
 			tb_wms_layers
+		WHERE id &lt; 10000
 	</select>
 	
 	<select id="getMapServiceItemList" resultType="com.lmars.search.pojo.SearchItem">
 		SELECT
 			id,
 			mapserviceId serviceId,
-			layerName mapName,
+			layerName mapTitle,
 			description mapDesc,
+			<!--  layerId mapName, --> 
 			images
 		FROM
 			tb_mapservice_layers
 		WHERE
-			id &gt; 2000000
+			id &gt; 2000000 AND id &lt; 2010000
 	</select>
 </mapper>

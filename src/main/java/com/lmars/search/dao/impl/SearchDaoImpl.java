@@ -38,20 +38,21 @@ public class SearchDaoImpl implements SearchDao {
 			item.setId((String) solrDocument.get("id"));
 			item.setImages((String) solrDocument.get("images"));
 			item.setServiceId((String) solrDocument.get("serviceId"));
+			item.setMapName((String)solrDocument.get("mapName"));
 
 			// 取高亮显示
 			Map<String, Map<String, List<String>>> highlighting = response.getHighlighting();
-			List<String> mapNameList = highlighting.get(solrDocument.get("id")).get("mapName");
+			List<String> mapTitleList = highlighting.get(solrDocument.get("id")).get("mapTitle");
 			List<String> mapDescList = highlighting.get(solrDocument.get("id")).get("mapDesc");
 
-			String mapName = "";
+			String mapTitle = "";
 			String mapDesc = "";
-			if (mapNameList != null && mapNameList.size() > 0) {
+			if (mapTitleList != null && mapTitleList.size() > 0) {
 				// 取高亮后的结果
-				mapName = mapNameList.get(0);
+				mapTitle = mapTitleList.get(0);
 			} else {
 				// 如果没有高亮结果，就取原结果
-				mapName = (String) solrDocument.get("mapName");
+				mapTitle = (String) solrDocument.get("mapTitle");
 			}
 
 			if (mapDescList != null && mapDescList.size() > 0) {
@@ -60,9 +61,12 @@ public class SearchDaoImpl implements SearchDao {
 			} else {
 				// 如果没有高亮结果，就取原结果
 				mapDesc = (String) solrDocument.get("mapDesc");
+				if(mapDesc.length()>300){
+					mapDesc = mapDesc.substring(0, 300);
+				}
 			}
 			// 把标题和名称添加到结果中
-			item.setMapName(mapName);
+			item.setMapTitle(mapTitle);
 			item.setMapDesc(mapDesc);
 
 			// 添加到列表

@@ -1,10 +1,13 @@
 package com.lmars.search.pojo;
 
+import com.lmars.common.utils.JsonUtils;
+
 /*
  * 服务基本信息POJO类
  */
 public class ServiceInfo {
 
+	private Long id;
 	private String url;
 	private String title;
 	private String abstracts;
@@ -12,6 +15,16 @@ public class ServiceInfo {
 	private String version;
 	private String fees;
 	private String access;
+
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getUrl() {
 		return url;
@@ -69,4 +82,14 @@ public class ServiceInfo {
 		this.access = access;
 	}
 
+	@Override
+	public String toString() {
+		return "{'url':'" + url + "', 'title':'" + title + "', 'abstracts':'" + abstracts + "', 'keywords':'" + keywords
+				+ "', 'version':'" + version + "', 'fees':" + fees + "', 'access':'" + access + "'}";
+	}
+	/*@Override
+	public String toString() {
+		return JsonUtils.objectToJson(this);
+	}*/
+	
 }

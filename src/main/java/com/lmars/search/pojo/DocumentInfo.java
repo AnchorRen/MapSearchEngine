@@ -31,9 +31,9 @@ public class DocumentInfo {
 	
 	@Override
 	public String toString() {
-		return "DocumentInfo [title=" + title + ", author=" + author + ", comments=" + comments + ", subject=" + subject
-				+ ", category=" + category + ", antialiasingMode=" + antialiasingMode + ", textAntialiasingMode="
-				+ textAntialiasingMode + ", keywords=" + keywords + "]";
+		return "{'title':'" + title + "', 'author':'" + author + "', 'comments':'" + comments + "', 'subject':'" + subject
+				+ "', 'category':'" + category + "', 'antialiasingMode':'" + antialiasingMode + "', 'textAntialiasingMode':'"
+				+ textAntialiasingMode + "', 'keywords':'" + keywords + "'}";
 	}
 
 	
@@ -102,4 +102,5 @@ public class DocumentInfo {
 		this.keywords = keywords;
 	}
 
+	
 }

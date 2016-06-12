@@ -140,4 +140,15 @@ public class TbWmsContact {
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
     }
+
+	@Override
+	public String toString() {
+		return "{'id':'" + id + "', 'wmsId':'" + wmsId + "', 'person':'" + person + "', 'organization':'" + organization
+				+ "', 'position':'" + position + "', 'addresstype':'" + addresstype + "', 'address':'" + address + "', 'city'='" + city
+				+ "', 'stateorprovince':'" + stateorprovince + "', 'country':'" + country + "', 'postcode':'" + postcode
+				+ "', 'voicetelephone':'" + voicetelephone + "', 'facsimiletelephone':'" + facsimiletelephone + "', 'email':'"
+				+ email + "'}";
+	}
+    
+    
 }

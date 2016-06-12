@@ -26,10 +26,18 @@ public class JedisTest {
 		JedisClient client = ap.getBean(JedisClient.class);
 //		String result = client.set("555", "SUCCESS!");
 		
-		System.out.println(client.get("MAP_ITEM:20003838"));
-		client.expire("MAP_ITEM:20003838", 0);
-		System.out.println("----------------");
-		System.out.println(client.get("MAP_ITEM:20003838"));
+		for(int i =20000226;i<=20002000;i++){
+			
+			Long result = client.expire("VISUAL_LAYERS:"+i, 0);
+			if(result > 0){
+				System.out.println(result);
+			}
+		}
+		
+		//System.out.println(client.get("MAP_ITEM:20003838"));
+		//client.expire("MAP_ITEM:20003838", 0);
+		//System.out.println("----------------");
+		//System.out.println(client.get("MAP_ITEM:20003838"));
 	}
 	
 	

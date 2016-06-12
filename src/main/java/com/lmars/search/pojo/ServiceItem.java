@@ -46,4 +46,11 @@ public class ServiceItem {
 		this.wmsContact = wmsContact;
 	}
 
+	@Override
+	public String toString() {
+		return "{'serviceInfo':" + serviceInfo + ", 'layers':" + layers + ", 'documentInfo':" + documentInfo
+				+ ", 'wmsContact':" + wmsContact + "}";
+	}
+
+	
 }

@@ -19,7 +19,7 @@ $(document).ready(function () {
         next: '下一页',
         last: '尾页',
         onPageClick: function (event, page) {
-            $('#page-content').text('Page ' + page);
+           // $('#page-content').text('Page ' + page);
         }
     });
 

@@ -52,11 +52,6 @@
 			</div>
 		</div>
 	</div>
-		<div class="row">
-			<div class="col-md-7">
-				<span class="label label-primary">Primary</span>
-			</div>
-		</div>
 
 	<div class="col-md-9">
 		<div class="row">
@@ -71,7 +66,15 @@
 							</p>
 							<div>
 								<h3 class="title" >
-									<a href="/service/${item.serviceId}" target="_blank" >${item.mapName}</a>
+									<a href="/service/${item.serviceId}#${item.mapName}" target="_blank" >${item.mapTitle}</a>	
+									<%-- <c:choose>
+										<c:when test="${fn:startsWith(item.serviceId,'1') }">
+											<a href="/service/${item.serviceId}#${item.mapName}" target="_blank" >${item.mapTitle}</a>										</c:when>
+										<c:otherwise>
+											<a href="/service/${item.serviceId}#${item.mapName}" target="_blank" >${item.mapTitle}</a>
+										</c:otherwise>
+									</c:choose> --%>
+									
 								</h3>
 								<p class="des">${item.mapDesc}</p>
 							</div>

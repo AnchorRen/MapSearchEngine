@@ -1,15 +1,26 @@
 package com.lmars.search.pojo;
 
+import com.lmars.common.utils.JsonUtils;
+
 /*
  * 服务图层信息POJO类
  */
 public class Layer {
 
 	private String title;
+	private String name;
 	private String description;
 	private String url;
 	private int layerId;
 	private String images;
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getTitle() {
 		return title;
@@ -52,4 +63,9 @@ public class Layer {
 		this.images = images;
 	}
 
+	@Override
+	public String toString() {
+		return "Layer [title=" + title + ", name=" + name + ", description=" + description + ", url=" + url
+				+ ", layerId=" + layerId + ", images=" + images + "]";
+	}
 }

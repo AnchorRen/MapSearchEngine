@@ -34,7 +34,6 @@ public class MapLayerServiceImpl implements MapLayerService {
 		
 		//查询数据库，获得wms图层列表
 		List<SearchItem> itemList = itemMapper.getWMSItemList();
-		
 		for (SearchItem item : itemList) {
 			//创建文档对象
 			SolrInputDocument document = new SolrInputDocument();
@@ -44,6 +43,7 @@ public class MapLayerServiceImpl implements MapLayerService {
 			document.addField("mapName", item.getMapName());
 			document.addField("mapDesc", item.getMapDesc());
 			document.addField("images", item.getImages());
+			document.addField("mapTitle", item.getMapTitle());
 			//写入索引库
 			solrServer.add(document);
 		}
@@ -65,8 +65,9 @@ public class MapLayerServiceImpl implements MapLayerService {
 			//添加域
 			document.addField("id", item.getId());
 			document.addField("serviceId", item.getServiceId());
-			document.addField("mapName", item.getMapName());
+			document.addField("mapName", item.getMapTitle());
 			document.addField("mapDesc", item.getMapDesc());
+			document.addField("mapTitle", item.getMapTitle());
 			document.addField("images", item.getImages());
 			//写入索引库
 			solrServer.add(document);
@@ -86,7 +87,8 @@ public class MapLayerServiceImpl implements MapLayerService {
 			//添加域
 			document.addField("id", layer.getId());
 			document.addField("serviceId", layer.getWmsid());
-			document.addField("mapName", layer.getTitle());
+			document.addField("mapName", layer.getName());
+			document.addField("mapTitle", layer.getTitle());
 			document.addField("mapDesc", layer.getAbstracts());
 			document.addField("images", layer.getImages());
 			//写入索引库
@@ -110,6 +112,7 @@ public class MapLayerServiceImpl implements MapLayerService {
 			document.addField("id", layer.getId());
 			document.addField("serviceId", layer.getMapserviceid());
 			document.addField("mapName", layer.getLayername());
+			document.addField("mapTitle",layer.getLayername() );
 			document.addField("mapDesc", layer.getDescription());
 			document.addField("images", layer.getImages());
 			//写入索引库

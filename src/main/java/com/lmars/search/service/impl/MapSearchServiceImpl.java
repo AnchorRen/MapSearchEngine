@@ -11,7 +11,7 @@ import com.lmars.search.pojo.SearchItem;
 import com.lmars.search.pojo.SearchResult;
 import com.lmars.search.service.MapSearchService;
 /*
- * 关键字搜索Controller
+ * 关键字搜索Service
  */
 @Service
 public class MapSearchServiceImpl implements MapSearchService {
@@ -37,7 +37,7 @@ public class MapSearchServiceImpl implements MapSearchService {
 		query.setHighlight(true);
 		//设置高亮片段的长度
 		query.setHighlightFragsize(300);
-		query.addHighlightField("mapName");
+		query.addHighlightField("mapTitle");
 		query.addHighlightField("mapDesc");
 		query.setHighlightSimplePre("<font style=\"color:red\">");
 		query.setHighlightSimplePost("</font>");
@@ -54,12 +54,6 @@ public class MapSearchServiceImpl implements MapSearchService {
 		}
 		result.setPageCount(pageCount);
 		result.setCurPage(page);
-		
-		List<SearchItem> list = result.getItemList();
-		for (SearchItem searchItem : list) {
-			System.out.println(searchItem.getMapDesc());
-			System.out.println("-------------------");
-		}
 		
 		return result;
 	}

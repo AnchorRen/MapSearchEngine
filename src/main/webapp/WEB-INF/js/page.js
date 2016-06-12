@@ -25,7 +25,6 @@ $(document).ready(function () {
         last: '尾页',
         loop :true,
         onPageClick: function (event, page) {
-            $('#page-content').text('Page ' + page);
         }
     });
 });

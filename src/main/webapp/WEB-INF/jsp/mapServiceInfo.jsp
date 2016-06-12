@@ -15,24 +15,17 @@
     <link rel="icon" href="../../favicon.ico">
     
     <title>${mapInfo.serviceInfo.title }</title>
-    <!-- Bootstrap core CSS -->
-    <link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
     
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="${pageContext.request.contextPath}/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" type="text/css" href="../../css/arcgis.css"> -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/leaflet.css" />
+	<link href="${pageContext.request.contextPath}/dist/css/leaflet.auto-layers.css" rel="stylesheet">
     
     <script src="${pageContext.request.contextPath}/assets/js/ie-emulation-modes-warning.js"></script>
-    
-    <!-- Load Leaflet from CDN-->
-	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet.css" />
-	  <link href="${pageContext.request.contextPath}/dist/css/leaflet.auto-layers.css" rel="stylesheet">
-	  <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js"></script>
-	  <!-- Load Esri Leaflet from CDN -->
-	  <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js"></script>
-	  
-  <!--   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script> -->
+     <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	 <!--  <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js"></script> -->
+    <script src="${pageContext.request.contextPath}/dist/js/leaflet-src.js"></script>
+	<script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js"></script>
     <script src="http://maps.google.com/maps/api/js?v=3"></script>
     <script src="${pageContext.request.contextPath}/dist/js/Bing.js"></script>
     <script src="${pageContext.request.contextPath}/dist/js/Control.FullScreen.js"></script>
@@ -200,14 +193,9 @@ body a {
   margin-bottom: 0;
 }
 </style>
-
 <body>
-
     <div class="page-masthead">
       <div class="container">
-        <!--   <a class="navbar-brand" href="#">
-            <img alt="Brand" src="../dist/image/lmars.png" style="height:50px; width:55px">
-          </a> -->
         <nav class="page-nav">
           <a class="page-nav-item active" href="#">Service Infomation</a>
           <a class="page-nav-item" href="#">About</a>
@@ -217,8 +205,9 @@ body a {
 
     <div class="container">
         <div class="map-title">
+        	<input type="hidden" id="id" value="${mapInfo.serviceInfo.id }"/>
             <h3>${mapInfo.serviceInfo.title}</h3>
-            <a href="${mapInfo.serviceInfo.url}" }">${mapInfo.serviceInfo.url}</a>
+            <a href="${mapInfo.serviceInfo.url}" target="_blank">${mapInfo.serviceInfo.url}</a>
         </div>
         <div class="service_description">
             <p id="service_description">${mapInfo.serviceInfo.abstracts} </p>
@@ -228,14 +217,13 @@ body a {
             <div class="col-md-7 map-info">
                 <div id="layer-available ">
                     <h3>Available map layers&nbsp;(${mapInfo.layers.size()})</h3>
-                    
                     <div id="layer_table_scroller">
                         <div id="layer_table">
                         
                            <c:forEach items="${mapInfo.layers}" var="layer">
-	                            <div id="layer_offer" class="${layer.layerId%2==0?'even':'odd'}">
+	                            <div id="${layer.title }" class="${layer.layerId%2==0?'even':'odd'}">
 	                                <p class="layer_identifier">
-	                                    <span id="layername" class="layer_title">${layer.title}</span>
+	                                    <a href="${layer.url }" target="_blank" class="layer_title">${layer.title}</a>
 	                                    <span class="layer_id">(${layer.layerId }) </span>
 	                                </p>
 	                                <p class="layer_desc">
@@ -364,70 +352,95 @@ body a {
 
 
     };
-
-        var layer0 = L.esri.dynamicMapLayer({
-        url: 'http://arcgis.sd.gov/arcgis/rest/services/DENR/SpillsSupport/MapServer',
+     
+     
+    var layerName = location.hash;
+    if(layerName.length>1){
+    	layerName = layerName.substring(1);
+    }
+    
+    var map = L.map('map', {
+        zoom: 3,
+        center: [39, -104],
+        fullscreenControl: true,
+        minZoom:2
+    });
+    
+   /*  var layer0 = L.esri.dynamicMapLayer({
+        url: 'http://mapserv.utah.gov/arcgis/rest/services/PoliticalDistricts/MapServer',
         opacity: 1,
         useCors: false,
         layers:[0]
       });
 
-      var layer1 = L.esri.dynamicMapLayer({
-        url: 'http://arcgis.sd.gov/arcgis/rest/services/DENR/SpillsSupport/MapServer',
+    var layer1= L.esri.dynamicMapLayer({
+        url: 'http://mapserv.utah.gov/arcgis/rest/services/PoliticalDistricts/MapServer',
         opacity: 1,
         useCors: false,
         layers:[1]
       });
 
-      var layer2 = L.esri.dynamicMapLayer({
-        url: 'http://arcgis.sd.gov/arcgis/rest/services/DENR/SpillsSupport/MapServer',
+    var layer2 = L.esri.dynamicMapLayer({
+        url: 'http://mapserv.utah.gov/arcgis/rest/services/PoliticalDistricts/MapServer',
         opacity: 1,
         useCors: false,
         layers:[2]
       });
 
-      var layer3 = L.esri.dynamicMapLayer({
-        url: 'http://arcgis.sd.gov/arcgis/rest/services/DENR/SpillsSupport/MapServer',
-        opacity: 1,
-        useCors: false,
-        layers:[3]
-      });
-
-      var layer4 = L.esri.dynamicMapLayer({
-        url: 'http://arcgis.sd.gov/arcgis/rest/services/DENR/SpillsSupport/MapServer',
-        opacity: 1,
-        useCors: false,
-        layers:[4]
-      });
-
-        //图层数组
     var overlays = {
-          "layer0":layer0,
-          "layer1":layer1,
-          "layer2":layer2,
-          "layer3":layer3,
-          "layer4":layer4
+        "SGID10.POLITICAL.UtahHouseDistricts2012":layer0,
+        "SGID10.POLITICAL.UtahSenateDistricts2012":layer1,
+        "SGID10.POLITICAL.DistrictCombinationAreas2012":layer2,
+    }
+    
+    var config = {
+            overlays:overlays,
+            selectedBasemap: 'OpenStreetMap',
+            selectedOverlays: ["domains","boundaries"],
+            baseLayers:baseLayers,
         };
 
+        var control = L.control.autolayers(config).addTo(map); */
+    
+  
+    var overlays = {};
+    var id = document.getElementById("id").value;
+    $.ajax({
+        type: "GET",
+        url: "/visual/"+id,
+        dataType: "json",
+        success: function(data){
+                   if(data.status==200){
+                   var url = data.data.url;
+                   if(url != null){ //url为空，则图层都不能正常显示了。
+                       var layers = data.data.layers;
+                       $.each(layers, function(i){ 
+                       	var name = layers[i].name;
+                       	var layerId = layers[i].layerId;
+                       	if(name != "" && name != null){
+                       		 var layer =  L.esri.dynamicMapLayer({
+                       	        url: url,
+                       	        opacity: 1,
+                       	        useCors: false,
+                       	        layers:[layerId]
+                       	      });
+                       		overlays[name] = layer; //这行代码有问题
+                       	}
+                      }); //each
+                   }//if
+                }//if
+                   var config = {
+                           overlays:overlays,
+                           selectedBasemap: 'OpenStreetMap',
+                           selectedOverlays: [layerName.length>1?layerName:"a1a1a"],
+                           baseLayers:baseLayers,
+                       };
+                   var control = L.control.autolayers(config).addTo(map);
+           }//function
+    });//ajax 
 
-    var map = L.map('map', {
-        zoom: 6,
-        center: [39, -104]
-    });
-
-    var config = {
-        overlays:overlays,
-        selectedBasemap: 'OpenStreetMap',
-        selectedOverlays: ["domains","boundaries"],
-        baseLayers:baseLayers,
-    };
-
-    var control = L.control.autolayers(config).addTo(map);
     </script>
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="${pageContext.request.contextPath}/assets/js/ie10-viewport-bug-workaround.js"></script>

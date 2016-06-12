@@ -103,7 +103,8 @@ public class MapInfoServiceImpl implements MapInfoService {
 		TbWmsWithBLOBs wms = wmsMapper.selectByPrimaryKey(id);
 		ServiceInfo serviceInfo = new ServiceInfo();
 		if (wms != null && !wms.equals(null)) {
-
+			
+			serviceInfo.setId(wms.getId());
 			serviceInfo.setAbstracts(wms.getAbstracts());
 			serviceInfo.setAccess(wms.getAccess());
 			serviceInfo.setFees(wms.getFees());
@@ -139,6 +140,7 @@ public class MapInfoServiceImpl implements MapInfoService {
 				layer.setLayerId(wmsLayer.getCurrentid());
 				layer.setTitle(wmsLayer.getTitle());
 				layer.setUrl(wmsLayer.getUrl());
+				layer.setName(wmsLayer.getName());
 
 				layers.add(layer);
 			}
@@ -161,6 +163,7 @@ public class MapInfoServiceImpl implements MapInfoService {
 		DocumentInfo docInfo = new DocumentInfo();
 
 		if (mapService != null) {
+			serviceInfo.setId(mapService.getId());
 			serviceInfo.setAbstracts(mapService.getServicedescription());
 			serviceInfo.setAccess(mapService.getCopyrighttext());
 			serviceInfo.setTitle(mapService.getMapname());

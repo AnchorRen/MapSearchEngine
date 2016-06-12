@@ -26,6 +26,7 @@ public class SolrJTest {
 		document.addField("id", "002");
 		document.addField("wmsId", "10000001");
 		document.addField("mapName", "Map For DCE");
+		document.addField("mapTitle", "This is a title");
 		document.addField("mapDesc", "Good Map t!");
 		document.addField("images", "http:132.com");
 		

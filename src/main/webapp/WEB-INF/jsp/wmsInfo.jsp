@@ -17,7 +17,7 @@
     <title>${mapInfo.serviceInfo.title }</title>
     <!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/leaflet.css" />
     <link href="${pageContext.request.contextPath}/dist/css/leaflet.auto-layers.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     
@@ -27,13 +27,13 @@
     <script src="${pageContext.request.contextPath}/assets/js/ie-emulation-modes-warning.js"></script>
     
     
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/leaflet-src.js"></script>
     <!-- Load Esri Leaflet from CDN -->
-	<script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js"></script>
     <script src="http://maps.google.com/maps/api/js?v=3"></script>
     <script src="${pageContext.request.contextPath}/dist/js/Bing.js"></script>
     <script src="${pageContext.request.contextPath}/dist/js/Control.FullScreen.js"></script>
     <script src="${pageContext.request.contextPath}/dist/js/leaflet-autolayers.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -203,9 +203,6 @@ body a {
 
     <div class="page-masthead">
       <div class="container">
-        <!--   <a class="navbar-brand" href="#">
-            <img alt="Brand" src="../dist/image/lmars.png" style="height:50px; width:55px">
-          </a> -->
         <nav class="page-nav">
           <a class="page-nav-item active" href="#">Service Infomation</a>
           <a class="page-nav-item" href="#">About</a>
@@ -215,8 +212,9 @@ body a {
 
     <div class="container">
         <div class="map-title">
+        	<input type="hidden" id="id" value="${mapInfo.serviceInfo.id }"/>
             <h3>${mapInfo.serviceInfo.title}</h3>
-            <a href="${mapInfo.serviceInfo.url}" }">${mapInfo.serviceInfo.url}</a>
+            <a target="_blank" href="${mapInfo.serviceInfo.url}" }">${mapInfo.serviceInfo.url}</a>
         </div>
         <div class="service_description">
             <p id="service_description">${mapInfo.serviceInfo.abstracts} </p>
@@ -231,10 +229,10 @@ body a {
                         <div id="layer_table">
                         
                            <c:forEach items="${mapInfo.layers}" var="layer">
-	                            <div id="layer_offer" class="${layer.layerId%2==0?'even':'odd'}">
+	                            <div id="${layer.name }" class="${layer.layerId%2==0?'even':'odd'}">
 	                                <p class="layer_identifier">
-	                                    <span id="layername" class="layer_title">${layer.title}</span>
-	                                    <span class="layer_id">(${layer.layerId }) </span>
+	                                    <a href="${layer.url }" target="_blank" class="layer_title">${layer.title}</a>
+	                                    <span class="layer_id">(${layer.name }) </span>
 	                                </p>
 	                                <p class="layer_desc">
 	                                    <span id="layerdesc" >${layer.description}</span>
@@ -249,7 +247,6 @@ body a {
                             </c:forEach>
                         </div>
                     </div>
-                    
                 </div>
             </div>
             <div class="col-md-5 map-contact">
@@ -294,8 +291,7 @@ body a {
 										<div>
 											<p itemprop="name">Name:&nbsp;${mapInfo.wmsContact.person }</p>
 										</div>
-										<div itemprop="address" itemscope
-											itemtype="http://schema.org/PostalAddress">
+										<div itemprop="address">
 											<p>
 												${mapInfo.wmsContact.addresstype} Address:&nbsp;
 												<span itemprop="address">${mapInfo.wmsContact.address }</span>&nbsp;
@@ -390,67 +386,99 @@ body a {
         "Google Terrain": googleTerrain,
         "Bing Aerial": bingAerial,
         "Bing Hybrid": bingAerialWithLabels,
-        //"Bing Birdseye":bingBirdseye,
         "Bing Road": bingRoad
-
-
     };
+     
+    var overlays = {};
+    var id = document.getElementById("id").value;
+    $.ajax({
+        type: "GET",
+        url: "/visual/"+id,
+        dataType: "json",
+        success: function(data){
+                   if(data.status==200){
+                   var url = data.data.url;
+                   if(url != null){ //url为空，则图层都不能正常显示了。
+                       var layers = data.data.layers;
+                       $.each(layers, function(i){ 
+                       	var name = layers[i].name;
+                       	if(name != "" && name != null){
+                       		var layer = L.tileLayer.wms(url, {
+                       	        layers: name,
+                       	        transparent: true,
+                       	        maxZoom: 16,
+                       	        format: 'image/png'
+                       	    });
+                       		overlays[name] = layer;
+                       	}
+                      }); //each
+                       //alert(JSON.stringify(overlays));
+                   }//if
+                }//if
+                if(layerName!=""){
+		                $.ajax({
+		                	type: "GET",
+		                    url: "/initial/"+id+"/"+layerName,
+		                    dataType: "json",
+		                    success: function(data){
+		                    	if(data.status==200){
+		                    		var crs = data.data.crs;
+		                    		if(crs=="EPSG:4326"){
+		                    			
+		                    		var south = data.data.sourthLatitude;
+		                    		var west = data.data.westLongitude;
+		                    		var north = data.data.northLatitude;
+		                    		var east = data.data.eastLongitude;
+		                    		
+		                    		 map.fitBounds([
+		                    		                [south, west],
+		                    		                [north, east]
+		                    		                ]);
+		                    		}
+		                    	}
+		                    }
+		                }
+		             )
+                }
+                   var config = {
+                           overlays:overlays,
+                           selectedBasemap: 'OpenStreetMap',
+                           selectedOverlays: [layerName.length>1?layerName:"a1a1a"],
+                           baseLayers:baseLayers,
+                            mapServers:
+                             [{
+                               "url": "http://services.nationalmap.gov/arcgis/services/GlobalMap/GlobalMapWMS/MapServer/WmsServer?",
+                               "dictionary": "http://services.nationalmap.gov/arcgis/services/GlobalMap/GlobalMapWMS/MapServer/WMSServer?request=GetCapabilities&service=WMS",
+                               "name": "wms",
+                               "type": "wms",
+                               "baseLayers": []
+                           }]
 
-    //图层
-    var domains = new L.LayerGroup();
-    var cities = new L.LayerGroup();
-    var boundaries = new L.LayerGroup();
+                       };
+                   var control = L.control.autolayers(config).addTo(map);
+           }//function
+    });//ajax
+    
+    var layerName = location.hash;
+    if(layerName.length>1){
+    	layerName = layerName.substring(1);
+    }
 
-    L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.').addTo(cities),
-        L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.').addTo(cities),
-        L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.').addTo(cities),
-        L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.').addTo(cities),
-    //wms图层1
-    L.tileLayer.wms('http://mrdata.usgs.gov/services/ds898?', {
-        layers: 'domains',
-        transparent: true,
-        format: 'image/png'
-    }).addTo(domains),
-    //wms图层2
-    L.tileLayer.wms('http://mrdata.usgs.gov/services/ds898?', {
-        layers: 'boundaries',
-        transparent: true,
-        format: 'image/png'
-    }).addTo(boundaries);
-    //图层数组
-    var overlays = {
-        "domains": domains,
-        "boundaries": boundaries,
-        "cities": cities,
-    };
-
+    var CRS = L.CRS.EPSG4326;
+    
     var map = L.map('map', {
         zoom: 6,
-        center: [39, -104]
+        center: [39, -104],
+        fullscreenControl: true,
+       // crs:CRS,
+        minZoom :2,
     });
 
-    var config = {
-        overlays:overlays,
-        selectedBasemap: 'OpenStreetMap',
-       selectedOverlays: "",
-        baseLayers:baseLayers,
-        /*  mapServers: [{
-            "url": "http://services.nationalmap.gov/arcgis/services/GlobalMap/GlobalMapWMS/MapServer/WmsServer?",
-            "dictionary": "http://services.nationalmap.gov/arcgis/services/GlobalMap/GlobalMapWMS/MapServer/WMSServer?request=GetCapabilities&service=WMS",
-            "name": "wms",
-            "type": "wms",
-            "baseLayers": []
-        }] */
-
-    };
-
-    var control = L.control.autolayers(config).addTo(map);
-    </script>
     </script>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    
     <script src="${pageContext.request.contextPath}/dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="${pageContext.request.contextPath}/assets/js/ie10-viewport-bug-workaround.js"></script>

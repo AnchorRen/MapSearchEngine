@@ -7,8 +7,18 @@ public class SearchItem {
 	private String id;
 	private String serviceId;
 	private String mapName;
+	private String mapTitle;
 	private String mapDesc;
 	private String images;
+
+	
+	public String getMapTitle() {
+		return mapTitle;
+	}
+
+	public void setMapTitle(String mapTitle) {
+		this.mapTitle = mapTitle;
+	}
 
 	public String getId() {
 		return id;
@@ -50,4 +60,11 @@ public class SearchItem {
 		this.images = images;
 	}
 
+	@Override
+	public String toString() {
+		return "{'id:'" + id + ", 'serviceId':" + serviceId + ", 'mapName':" + mapName + ", 'mapDesc':" + mapDesc
+				+ ", 'images':" + images + "}";
+	}
+
+	
 }
