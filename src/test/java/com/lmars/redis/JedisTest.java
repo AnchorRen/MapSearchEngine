@@ -26,9 +26,9 @@ public class JedisTest {
 		JedisClient client = ap.getBean(JedisClient.class);
 //		String result = client.set("555", "SUCCESS!");
 		
-		for(int i =20000226;i<=20002000;i++){
+		for(int i =20000001;i<=20010000;i++){
 			
-			Long result = client.expire("VISUAL_LAYERS:"+i, 0);
+			Long result = client.expire("MAP_ITEM:"+i, 0);
 			if(result > 0){
 				System.out.println(result);
 			}

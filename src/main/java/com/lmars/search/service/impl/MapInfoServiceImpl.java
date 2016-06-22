@@ -141,6 +141,7 @@ public class MapInfoServiceImpl implements MapInfoService {
 				layer.setTitle(wmsLayer.getTitle());
 				layer.setUrl(wmsLayer.getUrl());
 				layer.setName(wmsLayer.getName());
+				layer.setId(wmsLayer.getId());
 
 				layers.add(layer);
 			}
@@ -193,6 +194,7 @@ public class MapInfoServiceImpl implements MapInfoService {
 				layer.setLayerId(mapLayer.getLayerid());
 				layer.setTitle(mapLayer.getLayername());
 				layer.setUrl(mapLayer.getLayerurl());
+				layer.setId(mapLayer.getId());
 
 				layers.add(layer);
 			}

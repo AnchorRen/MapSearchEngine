@@ -6,7 +6,8 @@ import com.lmars.common.utils.JsonUtils;
  * 服务图层信息POJO类
  */
 public class Layer {
-
+	
+	private Long id;
 	private String title;
 	private String name;
 	private String description;
@@ -14,6 +15,17 @@ public class Layer {
 	private int layerId;
 	private String images;
 	
+	
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}

@@ -48,7 +48,7 @@
 <script type="text/javascript">
 
 	function search(a) {
-    var b = "http://localhost:8080/q?keywords=" + encodeURIComponent(document.getElementById(a).value);
+    var b = "http://202.114.118.95:8080/q?keywords=" + encodeURIComponent(document.getElementById(a).value);
     return window.location.href = b;//重定向
 	}
 

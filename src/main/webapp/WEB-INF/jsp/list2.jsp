@@ -60,9 +60,19 @@
 					<c:forEach items="${itemList}" var="item">
 						<li class="have-img">
 							<p class="images">
-									<a href="${item.images}" target="_blank" class="wrap-img"> <img src="../../images/${item.id%10}.png"></a>
-									<a href="${item.images}" target="_blank" class="wrap-img"> <img src="../../images/${(item.id+1)%10}.png"></a> 
-									<a href="${item.images}" target="_blank" class="wrap-img"> <img src="../../images/${(item.id+2)%10}.png"></a>
+									<c:choose>
+										<c:when test="${fn:startsWith(item.serviceId,'1') }">
+											<a href="../../images/wms/${item.id}/${item.id}_3.png" target="_blank" class="wrap-img"> <img src="../../images/wms/${item.id}/${item.id}_3.png"></a>
+											<a href="../../images/wms/${item.id}/${item.id}_2.png" target="_blank" class="wrap-img"> <img src="../../images/wms/${item.id}/${item.id}_2.png"></a> 
+											<a href="../../images/wms/${item.id}/${item.id}_1.png" target="_blank" class="wrap-img"> <img src="../../images/wms/${item.id}/${item.id}_1.png"></a>
+										</c:when>
+										<c:otherwise>
+											<a href="../../images/arcgis/${item.id}/${item.id}_3.png" target="_blank" class="wrap-img"> <img src="../../images/arcgis/${item.id}/${item.id}_3.png"></a>
+											<a href="../../images/arcgis/${item.id}/${item.id}_2.png" target="_blank" class="wrap-img"> <img src="../../images/arcgis/${item.id}/${item.id}_2.png"></a> 
+											<a href="../../images/arcgis/${item.id}/${item.id}_1.png" target="_blank" class="wrap-img"> <img src="../../images/arcgis/${item.id}/${item.id}_1.png"></a>
+										</c:otherwise>
+									</c:choose>
+									
 							</p>
 							<div>
 								<h3 class="title" >
@@ -114,7 +124,7 @@
 	</div>
 	<script type="text/javascript">
 		function search(a) {
-			var b = "http://localhost:8080/q?keywords="
+			var b = "http://202.114.118.95:8080/q?keywords="
 					+ encodeURIComponent(document.getElementById(a).value);
 			return window.location.href = b;//重定向
 		}

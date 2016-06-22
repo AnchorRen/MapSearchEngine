@@ -239,9 +239,9 @@ body a {
 	                                    <!-- 图片遍历 -->
 	                                </p>
 	                               <div id="images">
-	                               		<img class="layer_img"  src="../../images/2.png">
-								        <img class="layer_img"  src="../../images/5.png">
-								        <img class="layer_img"  src="../../images/4.png">
+	                               		<img class="layer_img"  src="../../images/wms/${layer.id}/${layer.id}_1.png">
+								        <img class="layer_img"  src="../../images/wms/${layer.id}/${layer.id}_2.png">
+								        <img class="layer_img"  src="../../images/wms/${layer.id}/${layer.id}_3.png">
 	                               </div>
 	                            </div>
                             </c:forEach>
