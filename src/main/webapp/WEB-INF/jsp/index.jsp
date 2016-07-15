@@ -27,15 +27,16 @@
 						
 						</div>
 						<div class="row">
-							<form action="/" method="get">
+							<form action="/q" method="get">
 								<div class="col-sm-9">
 									<div class="form-group">								
-									    <input type="text" autocomplete='off' name="keyword" class="form-control input-header" id="key" placeholder="input keywords to search map services">
+									    <input type="text" autocomplete='off' name="keywords" class="form-control input-header" id="key" placeholder="input keywords to search map services">
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="form-group">
-									   	<button type="submit" class="btn btn-default btn-outline btn-header btn-block" onclick="search('key');return false;">搜             索</button>
+									   <!-- 	<button type="submit" class="btn btn-default btn-outline btn-header btn-block" onclick="search('key');return false;">搜             索</button> -->
+									   	<button type="submit" class="btn btn-default btn-outline btn-header btn-block">搜             索</button>
 									</div>
 								</div>
 							</form>
@@ -48,7 +49,7 @@
 <script type="text/javascript">
 
 	function search(a) {
-    var b = "http://202.114.118.95:8080/q?keywords=" + encodeURIComponent(document.getElementById(a).value);
+    var b = "http://localhost:8080/q?keywords=" + encodeURIComponent(document.getElementById(a).value);
     return window.location.href = b;//重定向
 	}
 
